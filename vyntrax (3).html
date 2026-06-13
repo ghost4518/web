@@ -1,0 +1,1222 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Vyntrax — Innovate. Elevate. Dominate.</title>
+  <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;600;700;900&family=Barlow:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --green:       #00ff6a;
+      --green-dim:   #00c952;
+      --green-glow:  #00ff6a44;
+      --green-dark:  #003d1a;
+      --bg:          #080a08;
+      --bg2:         #0c100c;
+      --bg3:         #111611;
+      --surface:     #0f150f;
+      --border:      #1a2e1a;
+      --text:        #e8f0e8;
+      --muted:       #6b806b;
+      --font-display: 'Barlow Condensed', sans-serif;
+      --font-body:    'Barlow', sans-serif;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: var(--font-body);
+      overflow-x: hidden;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* ─── SCROLLBAR ─── */
+    ::-webkit-scrollbar { width: 4px; }
+    ::-webkit-scrollbar-track { background: var(--bg); }
+    ::-webkit-scrollbar-thumb { background: var(--green-dark); border-radius: 2px; }
+
+    /* ─── NAV ─── */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 18px 48px;
+      background: linear-gradient(to bottom, rgba(8,10,8,.95) 0%, rgba(8,10,8,0) 100%);
+      backdrop-filter: blur(4px);
+    }
+    .nav-logo {
+      display: flex; align-items: center; gap: 10px;
+      text-decoration: none;
+    }
+    .logo-icon {
+      width: 36px; height: 36px;
+    }
+    .nav-logo span {
+      font-family: var(--font-display);
+      font-weight: 700; font-size: 1.25rem;
+      letter-spacing: 0.2em; color: var(--text);
+      text-transform: uppercase;
+    }
+    .nav-links {
+      display: flex; gap: 36px; list-style: none;
+    }
+    .nav-links a {
+      font-family: var(--font-display);
+      font-size: .85rem; font-weight: 600;
+      letter-spacing: .15em; text-transform: uppercase;
+      color: var(--muted); text-decoration: none;
+      transition: color .2s;
+      position: relative;
+    }
+    .nav-links a.active,
+    .nav-links a:hover { color: var(--green); }
+    .nav-links a.active::after {
+      content: ''; position: absolute; left: 0; bottom: -6px;
+      width: 100%; height: 1px; background: var(--green);
+    }
+    .nav-cta {
+      display: flex; align-items: center; gap: 0;
+    }
+    .btn-talk {
+      font-family: var(--font-display);
+      font-weight: 700; font-size: .85rem;
+      letter-spacing: .18em; text-transform: uppercase;
+      color: var(--text); text-decoration: none;
+      border: 1px solid #3a4a3a;
+      padding: 10px 22px;
+      display: flex; align-items: center; gap: 10px;
+      transition: border-color .2s, color .2s, background .2s;
+    }
+    .btn-talk:hover { border-color: var(--green); color: var(--green); }
+    .btn-talk-dot {
+      width: 28px; height: 28px;
+      background: var(--green);
+      display: flex; align-items: center; justify-content: center;
+      color: var(--bg);
+      font-size: .9rem;
+      transition: background .2s;
+    }
+    .btn-talk:hover .btn-talk-dot { background: var(--green-dim); }
+
+    /* ─── HERO ─── */
+    .hero {
+      min-height: 100vh;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      align-items: center;
+      padding: 120px 48px 60px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    /* Geometric background lines */
+    .hero::before {
+      content: '';
+      position: absolute; inset: 0;
+      background:
+        linear-gradient(135deg, transparent 40%, rgba(0,255,106,.03) 50%, transparent 60%),
+        linear-gradient(45deg, transparent 40%, rgba(0,255,106,.02) 50%, transparent 60%);
+      pointer-events: none;
+    }
+
+    /* Grid lines overlay */
+    .hero-grid-lines {
+      position: absolute; inset: 0; pointer-events: none;
+      background-image:
+        linear-gradient(rgba(0,255,106,.04) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(0,255,106,.04) 1px, transparent 1px);
+      background-size: 80px 80px;
+      mask-image: radial-gradient(ellipse 70% 70% at 70% 50%, black 30%, transparent 80%);
+    }
+
+    .hero-left {
+      position: relative; z-index: 2;
+    }
+    .hero-eyebrow {
+      display: flex; align-items: center; gap: 14px;
+      margin-bottom: 28px;
+    }
+    .hero-eyebrow-line {
+      width: 28px; height: 1px; background: var(--green);
+    }
+    .hero-eyebrow span {
+      font-family: var(--font-display);
+      font-size: .75rem; font-weight: 600;
+      letter-spacing: .25em; text-transform: uppercase;
+      color: var(--green);
+    }
+
+    .hero-headline {
+      font-family: var(--font-display);
+      font-weight: 900;
+      font-size: clamp(3.5rem, 7vw, 6.5rem);
+      line-height: .92;
+      letter-spacing: -.01em;
+      text-transform: uppercase;
+      margin-bottom: 24px;
+    }
+    .hero-headline .white { color: #fff; }
+    .hero-headline .accent { color: var(--green); }
+
+    .hero-sub {
+      font-size: 1rem; font-weight: 300; line-height: 1.65;
+      color: var(--muted); max-width: 380px; margin-bottom: 44px;
+    }
+
+    .hero-actions {
+      display: flex; align-items: center; gap: 28px; flex-wrap: wrap;
+    }
+    .btn-primary {
+      font-family: var(--font-display);
+      font-weight: 700; font-size: .85rem;
+      letter-spacing: .18em; text-transform: uppercase;
+      color: var(--text); text-decoration: none;
+      border: 1px solid #3a4a3a;
+      padding: 14px 26px;
+      display: flex; align-items: center; gap: 10px;
+      transition: border-color .2s, color .2s, box-shadow .2s;
+    }
+    .btn-primary:hover {
+      border-color: var(--green); color: var(--green);
+      box-shadow: 0 0 20px var(--green-glow);
+    }
+    .btn-ghost {
+      font-family: var(--font-display);
+      font-weight: 600; font-size: .85rem;
+      letter-spacing: .18em; text-transform: uppercase;
+      color: var(--muted); text-decoration: none;
+      display: flex; align-items: center; gap: 8px;
+      transition: color .2s;
+    }
+    .btn-ghost:hover { color: var(--green); }
+    .arrow-icon { font-size: .75rem; }
+
+    /* Social sidebar */
+    .hero-social {
+      position: absolute; left: 18px; top: 50%;
+      transform: translateY(-50%);
+      display: flex; flex-direction: column; gap: 20px;
+      z-index: 2;
+    }
+    .hero-social a {
+      color: var(--muted); text-decoration: none;
+      font-size: 1rem; transition: color .2s;
+      width: 22px; height: 22px;
+      display: flex; align-items: center; justify-content: center;
+    }
+    .hero-social a:hover { color: var(--green); }
+    .social-divider {
+      width: 1px; height: 50px; background: var(--border);
+      margin: 0 auto;
+    }
+
+    /* Scroll hint */
+    .scroll-hint {
+      position: absolute; right: 18px; top: 50%;
+      transform: translateY(-50%) rotate(90deg);
+      display: flex; align-items: center; gap: 12px;
+      z-index: 2;
+    }
+    .scroll-hint span {
+      font-family: var(--font-display);
+      font-size: .65rem; letter-spacing: .3em;
+      text-transform: uppercase; color: var(--muted);
+    }
+    .scroll-hint-line { width: 40px; height: 1px; background: var(--border); }
+    .scroll-btn {
+      position: absolute; right: 14px; bottom: 40px;
+      width: 36px; height: 36px; border-radius: 50%;
+      border: 1px solid var(--border);
+      display: flex; align-items: center; justify-content: center;
+      color: var(--muted); text-decoration: none;
+      font-size: .9rem; z-index: 2;
+      transition: border-color .2s, color .2s;
+    }
+    .scroll-btn:hover { border-color: var(--green); color: var(--green); }
+
+    /* Hero visual */
+    .hero-right {
+      position: relative; z-index: 2;
+      display: flex; align-items: center; justify-content: center;
+    }
+    .hero-emblem {
+      position: relative; width: 100%; max-width: 580px;
+      aspect-ratio: 1;
+    }
+
+    /* Outer glow ring */
+    .emblem-ring {
+      position: absolute; inset: 0;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(0,255,106,.08) 0%, transparent 70%);
+      animation: pulse 4s ease-in-out infinite;
+    }
+    @keyframes pulse {
+      0%, 100% { transform: scale(1); opacity: .8; }
+      50% { transform: scale(1.05); opacity: 1; }
+    }
+
+    /* The V logo SVG */
+    .emblem-v {
+      position: absolute; inset: 5%;
+      display: flex; align-items: center; justify-content: center;
+    }
+    .emblem-v svg {
+      width: 100%; height: 100%;
+      filter: drop-shadow(0 0 30px rgba(0,255,106,.6))
+              drop-shadow(0 0 80px rgba(0,255,106,.3));
+    }
+
+    /* Wordmark below V */
+    .emblem-wordmark {
+      position: absolute; bottom: 8%; left: 0; right: 0;
+      text-align: center;
+    }
+    .emblem-wordmark h2 {
+      font-family: var(--font-display);
+      font-weight: 700; font-size: clamp(1.4rem, 3.5vw, 2.8rem);
+      letter-spacing: .4em; text-transform: uppercase;
+      color: rgba(0,255,106,.7);
+      text-shadow: 0 0 20px rgba(0,255,106,.5);
+    }
+    .emblem-wordmark p {
+      font-family: var(--font-display);
+      font-size: .65rem; letter-spacing: .35em;
+      text-transform: uppercase; color: rgba(0,255,106,.4);
+      margin-top: 4px;
+    }
+    .emblem-deco-line {
+      width: 60%; height: 1px; background: linear-gradient(to right, transparent, var(--green), transparent);
+      margin: 6px auto 0;
+    }
+    .emblem-deco-chevron {
+      text-align: center; color: rgba(0,255,106,.5); font-size: .7rem;
+      margin-top: 4px;
+    }
+
+    /* Diagonal lines behind emblem */
+    .emblem-lines {
+      position: absolute; inset: 0; pointer-events: none;
+      overflow: hidden;
+    }
+    .emblem-lines::before,
+    .emblem-lines::after {
+      content: '';
+      position: absolute;
+      width: 200%; height: 1px;
+      background: linear-gradient(to right, transparent, rgba(0,255,106,.12), transparent);
+      top: 50%; left: -50%;
+    }
+    .emblem-lines::before { transform: rotate(-25deg); }
+    .emblem-lines::after  { transform: rotate(25deg); }
+
+    /* ─── SERVICES BAR ─── */
+    .services-bar {
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+      background: var(--bg2);
+      padding: 0 48px;
+    }
+    .services-bar-inner {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+    }
+    .service-item {
+      display: flex; align-items: flex-start; gap: 18px;
+      padding: 36px 28px;
+      border-right: 1px solid var(--border);
+      transition: background .2s;
+    }
+    .service-item:last-child { border-right: none; }
+    .service-item:hover { background: rgba(0,255,106,.03); }
+    .service-icon {
+      width: 52px; height: 52px; flex-shrink: 0;
+      border: 1px solid var(--border);
+      clip-path: polygon(25% 0%, 75% 0%, 100% 50%, 75% 100%, 25% 100%, 0% 50%);
+      display: flex; align-items: center; justify-content: center;
+      color: var(--green); font-size: 1.1rem;
+      background: var(--green-dark);
+      transition: background .2s, box-shadow .2s;
+    }
+    .service-item:hover .service-icon {
+      background: rgba(0,255,106,.15);
+      box-shadow: 0 0 16px var(--green-glow);
+    }
+    .service-text h3 {
+      font-family: var(--font-display);
+      font-weight: 700; font-size: .95rem;
+      letter-spacing: .12em; text-transform: uppercase;
+      color: var(--text); margin-bottom: 6px;
+    }
+    .service-text p {
+      font-size: .82rem; font-weight: 300;
+      line-height: 1.55; color: var(--muted);
+    }
+
+    /* ─── STATS ─── */
+    .stats {
+      background: var(--bg);
+      padding: 0 48px;
+      border-bottom: 1px solid var(--border);
+    }
+    .stats-inner {
+      display: grid; grid-template-columns: repeat(4, 1fr);
+      position: relative;
+    }
+    .stats-inner::after {
+      content: '';
+      position: absolute; bottom: 0; left: 50%; transform: translateX(-50%);
+      width: 80px; height: 2px;
+      background: linear-gradient(to right, transparent, var(--green), transparent);
+    }
+    .stat-item {
+      padding: 48px 28px;
+      border-right: 1px solid var(--border);
+    }
+    .stat-item:last-child { border-right: none; }
+    .stat-number {
+      font-family: var(--font-display);
+      font-weight: 900; font-size: clamp(2.4rem, 4vw, 3.6rem);
+      color: var(--green); line-height: 1;
+      margin-bottom: 8px;
+      text-shadow: 0 0 30px rgba(0,255,106,.4);
+    }
+    .stat-label {
+      font-family: var(--font-display);
+      font-size: .72rem; font-weight: 600;
+      letter-spacing: .2em; text-transform: uppercase;
+      color: var(--muted);
+    }
+
+    /* ─── ABOUT ─── */
+    .about {
+      padding: 120px 48px;
+      display: grid; grid-template-columns: 1fr 1fr; gap: 80px;
+      align-items: center;
+    }
+    .section-eyebrow {
+      display: flex; align-items: center; gap: 14px; margin-bottom: 22px;
+    }
+    .section-eyebrow-line { width: 28px; height: 1px; background: var(--green); }
+    .section-eyebrow span {
+      font-family: var(--font-display);
+      font-size: .72rem; font-weight: 600;
+      letter-spacing: .25em; text-transform: uppercase;
+      color: var(--green);
+    }
+    .section-title {
+      font-family: var(--font-display);
+      font-weight: 900; font-size: clamp(2.2rem, 4vw, 3.8rem);
+      line-height: .92; letter-spacing: -.01em;
+      text-transform: uppercase; color: #fff;
+      margin-bottom: 24px;
+    }
+    .section-body {
+      font-size: .95rem; font-weight: 300; line-height: 1.75;
+      color: var(--muted); margin-bottom: 20px;
+    }
+    .about-visual {
+      position: relative; aspect-ratio: 1;
+      display: flex; align-items: center; justify-content: center;
+    }
+    .about-hex-grid {
+      display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px;
+      transform: rotate(15deg);
+    }
+    .about-hex {
+      width: 80px; height: 92px;
+      clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
+      background: var(--surface);
+      border: 1px solid var(--border);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.5rem; color: var(--green);
+      transition: background .3s, box-shadow .3s;
+    }
+    .about-hex.lit {
+      background: rgba(0,255,106,.08);
+      box-shadow: 0 0 20px var(--green-glow);
+    }
+
+    /* ─── WORK ─── */
+    .work { padding: 80px 48px; }
+    .work-header {
+      display: flex; align-items: flex-end; justify-content: space-between;
+      margin-bottom: 48px;
+    }
+    .work-grid {
+      display: grid; grid-template-columns: repeat(3, 1fr); gap: 2px;
+    }
+    .work-card {
+      position: relative; aspect-ratio: 4/3; overflow: hidden;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      cursor: pointer;
+    }
+    .work-card-bg {
+      position: absolute; inset: 0;
+      background: linear-gradient(135deg, var(--bg3) 0%, var(--green-dark) 100%);
+      transition: transform .4s ease;
+    }
+    .work-card:hover .work-card-bg { transform: scale(1.05); }
+    .work-card-overlay {
+      position: absolute; inset: 0;
+      background: linear-gradient(to top, rgba(0,0,0,.8) 0%, transparent 60%);
+    }
+    .work-card-content {
+      position: absolute; bottom: 24px; left: 24px; right: 24px;
+      transform: translateY(8px); opacity: 0;
+      transition: transform .3s, opacity .3s;
+    }
+    .work-card:hover .work-card-content { transform: translateY(0); opacity: 1; }
+    .work-card-tag {
+      font-family: var(--font-display);
+      font-size: .65rem; font-weight: 600;
+      letter-spacing: .2em; text-transform: uppercase;
+      color: var(--green); margin-bottom: 6px;
+    }
+    .work-card-title {
+      font-family: var(--font-display);
+      font-weight: 700; font-size: 1.1rem;
+      letter-spacing: .05em; text-transform: uppercase;
+      color: #fff;
+    }
+
+    /* Pattern overlays for work cards */
+    .work-card:nth-child(1) .work-card-bg { background: linear-gradient(135deg, #0a1a0a, #0d3020); }
+    .work-card:nth-child(2) .work-card-bg { background: linear-gradient(135deg, #0a120a, #0d2818); }
+    .work-card:nth-child(3) .work-card-bg { background: linear-gradient(135deg, #0c1a0c, #0a2015); }
+    .work-card-number {
+      position: absolute; top: 24px; right: 24px;
+      font-family: var(--font-display);
+      font-weight: 900; font-size: 3rem;
+      color: rgba(0,255,106,.08); line-height: 1;
+      z-index: 3;
+    }
+    .work-card-icon {
+      position: absolute; top: 50%; left: 50%; transform: translate(-50%,-50%);
+      font-size: 3rem; color: rgba(0,255,106,.15);
+      transition: color .3s;
+    }
+    .work-card:hover .work-card-icon { color: rgba(0,255,106,.3); }
+
+    /* Profile image inside card */
+    .work-card-avatar {
+      position: absolute; inset: 0;
+      display: flex; align-items: center; justify-content: center;
+      z-index: 1;
+    }
+    .work-card-avatar img {
+      width: 110px; height: 110px;
+      border-radius: 50%;
+      border: 2px solid rgba(0,255,106,.35);
+      object-fit: cover;
+      box-shadow: 0 0 24px rgba(0,255,106,.25);
+      transition: transform .4s ease, box-shadow .4s ease;
+    }
+    .work-card:hover .work-card-avatar img {
+      transform: scale(1.08);
+      box-shadow: 0 0 40px rgba(0,255,106,.45);
+    }
+    .work-card-overlay { z-index: 2; }
+    .work-card-content { z-index: 3; }
+
+    /* Social badge on card */
+    .work-card-badge {
+      position: absolute; top: 20px; left: 20px; z-index: 3;
+      width: 32px; height: 32px;
+      background: rgba(0,0,0,.7);
+      border: 1px solid rgba(0,255,106,.2);
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+    }
+
+    /* ─── PROCESS ─── */
+    .process { padding: 80px 48px; background: var(--bg2); }
+    .process-header { text-align: center; margin-bottom: 64px; }
+    .process-steps {
+      display: grid; grid-template-columns: repeat(4, 1fr);
+      position: relative;
+    }
+    .process-steps::before {
+      content: '';
+      position: absolute; top: 26px; left: 12.5%; right: 12.5%;
+      height: 1px; background: linear-gradient(to right, transparent, var(--border), transparent);
+    }
+    .process-step { padding: 0 24px; text-align: center; }
+    .step-num {
+      width: 52px; height: 52px; border-radius: 50%;
+      border: 1px solid var(--border);
+      display: flex; align-items: center; justify-content: center;
+      font-family: var(--font-display);
+      font-weight: 700; font-size: .8rem;
+      letter-spacing: .1em; color: var(--green);
+      background: var(--bg); margin: 0 auto 20px;
+      position: relative; z-index: 1;
+      transition: border-color .2s, box-shadow .2s;
+    }
+    .process-step:hover .step-num {
+      border-color: var(--green);
+      box-shadow: 0 0 16px var(--green-glow);
+    }
+    .step-title {
+      font-family: var(--font-display);
+      font-weight: 700; font-size: .9rem;
+      letter-spacing: .12em; text-transform: uppercase;
+      color: var(--text); margin-bottom: 10px;
+    }
+    .step-desc {
+      font-size: .8rem; font-weight: 300; line-height: 1.6;
+      color: var(--muted);
+    }
+
+
+
+    /* ─── CTA BANNER ─── */
+    .cta-banner {
+      margin: 0 48px;
+      border: 1px solid var(--border);
+      background: var(--bg2);
+      padding: 72px 80px;
+      display: flex; align-items: center; justify-content: space-between;
+      gap: 40px;
+      position: relative; overflow: hidden;
+    }
+    .cta-banner::before {
+      content: '';
+      position: absolute; top: -60px; right: -60px;
+      width: 300px; height: 300px;
+      background: radial-gradient(circle, rgba(0,255,106,.08) 0%, transparent 70%);
+      pointer-events: none;
+    }
+    .cta-left h2 {
+      font-family: var(--font-display);
+      font-weight: 900; font-size: clamp(2rem, 3.5vw, 3.2rem);
+      line-height: .95; text-transform: uppercase; color: #fff;
+      margin-bottom: 14px;
+    }
+    .cta-left h2 span { color: var(--green); }
+    .cta-left p { font-size: .9rem; color: var(--muted); max-width: 420px; line-height: 1.6; }
+    .cta-right { flex-shrink: 0; }
+    .btn-cta {
+      font-family: var(--font-display);
+      font-weight: 700; font-size: .9rem;
+      letter-spacing: .18em; text-transform: uppercase;
+      color: var(--bg); text-decoration: none;
+      background: var(--green);
+      padding: 18px 40px;
+      display: inline-flex; align-items: center; gap: 12px;
+      transition: background .2s, box-shadow .2s;
+    }
+    .btn-cta:hover { background: var(--green-dim); box-shadow: 0 0 30px var(--green-glow); }
+
+    /* ─── FOOTER ─── */
+    footer {
+      margin-top: 80px;
+      border-top: 1px solid var(--border);
+      padding: 60px 48px 36px;
+    }
+    .footer-top {
+      display: grid; grid-template-columns: 1.5fr 1fr 1fr 1fr;
+      gap: 48px; margin-bottom: 60px;
+    }
+    .footer-brand p {
+      font-size: .85rem; font-weight: 300; color: var(--muted);
+      line-height: 1.7; margin: 16px 0 24px;
+      max-width: 260px;
+    }
+    .footer-socials { display: flex; gap: 12px; }
+    .footer-socials a {
+      width: 36px; height: 36px; border: 1px solid var(--border);
+      display: flex; align-items: center; justify-content: center;
+      color: var(--muted); text-decoration: none; font-size: .9rem;
+      transition: border-color .2s, color .2s;
+    }
+    .footer-socials a:hover { border-color: var(--green); color: var(--green); }
+    .footer-col h4 {
+      font-family: var(--font-display);
+      font-weight: 700; font-size: .75rem;
+      letter-spacing: .2em; text-transform: uppercase;
+      color: var(--text); margin-bottom: 20px;
+    }
+    .footer-col ul { list-style: none; }
+    .footer-col ul li { margin-bottom: 10px; }
+    .footer-col ul li a {
+      font-size: .83rem; font-weight: 300;
+      color: var(--muted); text-decoration: none;
+      transition: color .2s;
+    }
+    .footer-col ul li a:hover { color: var(--green); }
+    .footer-bottom {
+      display: flex; align-items: center; justify-content: space-between;
+      border-top: 1px solid var(--border); padding-top: 28px;
+    }
+    .footer-bottom p {
+      font-size: .75rem; color: var(--muted);
+    }
+    .footer-bottom p span { color: var(--green); }
+
+    /* ─── RESPONSIVE ─── */
+    @media (max-width: 1024px) {
+      nav { padding: 16px 28px; }
+      .nav-links { display: none; }
+      .hero { grid-template-columns: 1fr; padding: 100px 28px 60px; }
+      .hero-right { display: none; }
+      .hero-social { display: none; }
+      .scroll-hint { display: none; }
+      .scroll-btn { display: none; }
+      .services-bar { padding: 0 28px; }
+      .services-bar-inner { grid-template-columns: repeat(2, 1fr); }
+      .service-item:nth-child(2) { border-right: none; }
+      .service-item:nth-child(3) { border-top: 1px solid var(--border); }
+      .stats { padding: 0 28px; }
+      .stats-inner { grid-template-columns: repeat(2, 1fr); }
+      .stat-item:nth-child(2) { border-right: none; }
+      .stat-item:nth-child(3) { border-top: 1px solid var(--border); }
+      .about { grid-template-columns: 1fr; padding: 60px 28px; gap: 40px; }
+      .about-visual { display: none; }
+      .work { padding: 60px 28px; }
+      .work-grid { grid-template-columns: 1fr 1fr; }
+      .process { padding: 60px 28px; }
+      .process-steps { grid-template-columns: repeat(2, 1fr); gap: 40px; }
+      .process-steps::before { display: none; }
+
+      .cta-banner { margin: 0 28px; padding: 48px 36px; flex-direction: column; align-items: flex-start; }
+      footer { padding: 48px 28px 28px; }
+      .footer-top { grid-template-columns: 1fr 1fr; }
+    }
+
+    @media (max-width: 600px) {
+      .hero { padding: 90px 20px 48px; }
+      .services-bar-inner { grid-template-columns: 1fr; }
+      .service-item { border-right: none; border-bottom: 1px solid var(--border); }
+      .stats-inner { grid-template-columns: 1fr 1fr; }
+      .work-grid { grid-template-columns: 1fr; }
+      .process-steps { grid-template-columns: 1fr; }
+      .cta-banner { margin: 0 20px; padding: 40px 24px; }
+      footer { padding: 40px 20px 24px; }
+      .footer-top { grid-template-columns: 1fr; }
+      .footer-bottom { flex-direction: column; gap: 12px; text-align: center; }
+      nav { padding: 14px 20px; }
+    }
+
+    /* ─── HOVER EFFECTS ─── */
+    @media (prefers-reduced-motion: reduce) {
+      .emblem-ring { animation: none; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ═══ NAV ═══ -->
+<nav>
+  <a href="#" class="nav-logo">
+    <!-- Vyntrax V Emblem Logo -->
+    <svg class="logo-icon" viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <linearGradient id="navGMain" x1="18" y1="0" x2="18" y2="32" gradientUnits="userSpaceOnUse">
+          <stop offset="0%" stop-color="#4dff8f"/>
+          <stop offset="60%" stop-color="#00ff6a"/>
+          <stop offset="100%" stop-color="#00c952"/>
+        </linearGradient>
+        <filter id="navGlow" x="-30%" y="-30%" width="160%" height="160%">
+          <feGaussianBlur stdDeviation="1.5" result="coloredBlur"/>
+          <feMerge><feMergeNode in="coloredBlur"/><feMergeNode in="SourceGraphic"/></feMerge>
+        </filter>
+      </defs>
+      <!-- Outer hex frame -->
+      <polygon points="18,2 32,9 32,25 18,32 4,25 4,9" fill="none" stroke="rgba(0,255,106,0.2)" stroke-width="0.8"/>
+      <!-- Wing accents -->
+      <path d="M4 9 L9 7 L14 13 L11 14 Z" fill="rgba(0,80,30,0.5)" stroke="rgba(0,255,106,0.25)" stroke-width="0.5"/>
+      <path d="M32 9 L27 7 L22 13 L25 14 Z" fill="rgba(0,80,30,0.5)" stroke="rgba(0,255,106,0.25)" stroke-width="0.5"/>
+      <!-- Main V shape -->
+      <path d="M7 6 L18 29 L29 6 L26 6 L18 24 L10 6 Z" fill="rgba(0,30,12,0.85)" stroke="url(#navGMain)" stroke-width="1.2" filter="url(#navGlow)"/>
+      <!-- Inner V bevel -->
+      <path d="M9 8 L18 26 L27 8 L25 8 L18 23 L11 8 Z" fill="none" stroke="rgba(0,255,106,0.35)" stroke-width="0.6"/>
+      <!-- Crown top notch -->
+      <path d="M16 6 L18 3.5 L20 6 L19 6 L18 4.5 L17 6 Z" fill="rgba(0,40,16,0.9)" stroke="url(#navGMain)" stroke-width="0.8" filter="url(#navGlow)"/>
+      <!-- Bottom V glow point -->
+      <circle cx="18" cy="29" r="1.5" fill="#00ff6a" filter="url(#navGlow)" opacity="0.9"/>
+      <circle cx="18" cy="29" r="0.7" fill="#fff"/>
+    </svg>
+    <span>Vyntrax</span>
+  </a>
+
+  <ul class="nav-links">
+    <li><a href="#" class="active">Home</a></li>
+    <li><a href="#about">About</a></li>
+    <li><a href="#services">Services</a></li>
+    <li><a href="#work">Work</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+
+  <div class="nav-cta">
+    <a href="#contact" class="btn-talk">
+      Let's Talk
+      <span class="btn-talk-dot">◆</span>
+    </a>
+  </div>
+</nav>
+
+<!-- ═══ HERO ═══ -->
+<section class="hero">
+  <div class="hero-grid-lines"></div>
+
+  <!-- Social sidebar -->
+  <div class="hero-social">
+    <div class="social-divider"></div>
+    <a href="https://x.com/Vyntraxindia" target="_blank" rel="noopener" title="X / Twitter">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.231H2.742l7.727-8.826L2.25 2.25H8.08l4.261 5.638 5.903-5.638zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+    </a>
+    <a href="https://www.instagram.com/vyntrax.india" target="_blank" rel="noopener" title="Instagram">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
+    </a>
+    <a href="https://discord.gg/sreuaAKEQg" target="_blank" rel="noopener" title="Discord">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M20.317 4.492c-1.53-.69-3.17-1.2-4.885-1.49a.075.075 0 0 0-.079.036c-.21.369-.444.85-.608 1.23a18.566 18.566 0 0 0-5.487 0 12.36 12.36 0 0 0-.617-1.23A.077.077 0 0 0 8.562 3c-1.714.29-3.354.8-4.885 1.491a.07.07 0 0 0-.032.027C.533 9.093-.32 13.555.099 17.961a.08.08 0 0 0 .031.055 20.03 20.03 0 0 0 5.993 2.98.078.078 0 0 0 .084-.026 13.83 13.83 0 0 0 1.226-1.963.074.074 0 0 0-.041-.104 13.175 13.175 0 0 1-1.872-.878.075.075 0 0 1-.008-.125c.126-.093.252-.19.372-.287a.075.075 0 0 1 .078-.01c3.927 1.764 8.18 1.764 12.061 0a.075.075 0 0 1 .079.009c.12.098.245.195.372.288a.075.075 0 0 1-.006.125c-.598.344-1.22.635-1.873.877a.075.075 0 0 0-.041.105c.36.687.772 1.341 1.225 1.962a.077.077 0 0 0 .084.028 19.963 19.963 0 0 0 6.002-2.981.076.076 0 0 0 .032-.054c.5-5.094-.838-9.52-3.549-13.442a.06.06 0 0 0-.031-.028z"/></svg>
+    </a>
+    <div class="social-divider"></div>
+  </div>
+
+  <!-- Left content -->
+  <div class="hero-left">
+    <div class="hero-eyebrow">
+      <span class="hero-eyebrow-line"></span>
+      <span>Welcome to Vyntrax</span>
+    </div>
+    <h1 class="hero-headline">
+      <span class="white">Innovate.<br>Elevate.<br></span>
+      <span class="accent">Dominate.</span>
+    </h1>
+    <p class="hero-sub">We are a digital agency built to transform ideas into powerful digital experiences.</p>
+    <div class="hero-actions">
+      <a href="#work" class="btn-primary">Explore Our Work <span class="arrow-icon">↗</span></a>
+      <a href="#services" class="btn-ghost">Our Services <span class="arrow-icon">↗</span></a>
+    </div>
+  </div>
+
+  <!-- Right emblem -->
+  <div class="hero-right">
+    <div class="hero-emblem">
+      <div class="emblem-ring"></div>
+      <div class="emblem-lines"></div>
+      <div class="emblem-v">
+        <svg viewBox="0 0 400 380" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <linearGradient id="gMain" x1="200" y1="0" x2="200" y2="320" gradientUnits="userSpaceOnUse">
+              <stop offset="0%" stop-color="#4dff8f"/>
+              <stop offset="60%" stop-color="#00ff6a"/>
+              <stop offset="100%" stop-color="#00c952"/>
+            </linearGradient>
+            <linearGradient id="gEdge" x1="0" y1="0" x2="400" y2="0" gradientUnits="userSpaceOnUse">
+              <stop offset="0%" stop-color="#003d1a"/>
+              <stop offset="50%" stop-color="#00ff6a" stop-opacity="0.9"/>
+              <stop offset="100%" stop-color="#003d1a"/>
+            </linearGradient>
+            <filter id="glow" x="-20%" y="-20%" width="140%" height="140%">
+              <feGaussianBlur stdDeviation="8" result="coloredBlur"/>
+              <feMerge>
+                <feMergeNode in="coloredBlur"/>
+                <feMergeNode in="coloredBlur"/>
+                <feMergeNode in="SourceGraphic"/>
+              </feMerge>
+            </filter>
+            <filter id="glow2" x="-30%" y="-30%" width="160%" height="160%">
+              <feGaussianBlur stdDeviation="16" result="coloredBlur"/>
+              <feMerge>
+                <feMergeNode in="coloredBlur"/>
+                <feMergeNode in="SourceGraphic"/>
+              </feMerge>
+            </filter>
+          </defs>
+
+          <!-- Outer angular frame lines -->
+          <path d="M60 40 L200 20 L340 40 L380 120 L200 300 L20 120 Z" fill="none" stroke="rgba(0,255,106,0.08)" stroke-width="1"/>
+          <path d="M80 50 L200 35 L320 50 L356 120 L200 280 L44 120 Z" fill="none" stroke="rgba(0,255,106,0.05)" stroke-width="1"/>
+
+          <!-- Wings / side elements -->
+          <path d="M30 80 L80 60 L140 120 L100 130 Z" fill="rgba(0,80,30,0.4)" stroke="rgba(0,255,106,0.2)" stroke-width="1"/>
+          <path d="M370 80 L320 60 L260 120 L300 130 Z" fill="rgba(0,80,30,0.4)" stroke="rgba(0,255,106,0.2)" stroke-width="1"/>
+
+          <!-- Wing detail lines -->
+          <line x1="45" y1="85" x2="130" y2="115" stroke="rgba(0,255,106,0.15)" stroke-width="1"/>
+          <line x1="55" y1="95" x2="125" y2="122" stroke="rgba(0,255,106,0.1)" stroke-width="1"/>
+          <line x1="355" y1="85" x2="270" y2="115" stroke="rgba(0,255,106,0.15)" stroke-width="1"/>
+          <line x1="345" y1="95" x2="275" y2="122" stroke="rgba(0,255,106,0.1)" stroke-width="1"/>
+
+          <!-- Main V shape - outer (dark fill) -->
+          <path d="M70 55 L200 290 L330 55 L290 55 L200 240 L110 55 Z" fill="rgba(0,30,12,0.8)" stroke="url(#gMain)" stroke-width="2" filter="url(#glow)"/>
+
+          <!-- Inner V bevel layer -->
+          <path d="M90 65 L200 265 L310 65 L285 65 L200 240 L115 65 Z" fill="rgba(0,50,20,0.5)" stroke="rgba(0,255,106,0.3)" stroke-width="1"/>
+
+          <!-- Innermost bright V -->
+          <path d="M110 75 L200 245 L290 75 L278 75 L200 228 L122 75 Z" fill="rgba(0,70,28,0.4)" stroke="rgba(0,255,106,0.6)" stroke-width="1.5" filter="url(#glow)"/>
+
+          <!-- Top notch / crown -->
+          <path d="M170 55 L200 30 L230 55 L215 55 L200 42 L185 55 Z" fill="rgba(0,40,16,0.8)" stroke="url(#gMain)" stroke-width="1.5" filter="url(#glow)"/>
+
+          <!-- Center glow point at bottom of V -->
+          <circle cx="200" cy="290" r="6" fill="#00ff6a" filter="url(#glow2)"/>
+          <circle cx="200" cy="290" r="3" fill="#fff"/>
+
+          <!-- Top crown tip glow -->
+          <circle cx="200" cy="30" r="4" fill="#00ff6a" filter="url(#glow2)" opacity="0.8"/>
+
+          <!-- Horizontal accent lines across V -->
+          <line x1="125" y1="105" x2="155" y2="105" stroke="rgba(0,255,106,0.25)" stroke-width="1"/>
+          <line x1="245" y1="105" x2="275" y2="105" stroke="rgba(0,255,106,0.25)" stroke-width="1"/>
+          <line x1="140" y1="140" x2="165" y2="140" stroke="rgba(0,255,106,0.15)" stroke-width="1"/>
+          <line x1="235" y1="140" x2="260" y2="140" stroke="rgba(0,255,106,0.15)" stroke-width="1"/>
+        </svg>
+      </div>
+
+      <div class="emblem-wordmark">
+        <h2>VYNTRAX</h2>
+        <div class="emblem-deco-line"></div>
+        <p>INNOVATE. ELEVATE. DOMINATE.</p>
+        <div class="emblem-deco-chevron">▼</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Scroll -->
+  <div class="scroll-hint">
+    <span class="scroll-hint-line"></span>
+    <span>Scroll to Explore</span>
+  </div>
+  <a href="#services" class="scroll-btn">↓</a>
+</section>
+
+<!-- ═══ SERVICES BAR ═══ -->
+<section class="services-bar" id="services">
+  <div class="services-bar-inner">
+    <div class="service-item">
+      <div class="service-icon">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
+      </div>
+      <div class="service-text">
+        <h3>Web Development</h3>
+        <p>High-performance websites built for speed and scale.</p>
+      </div>
+    </div>
+    <div class="service-item">
+      <div class="service-icon">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M17 2H7a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V4a2 2 0 0 0-2-2z"/><circle cx="12" cy="10" r="3"/><path d="M7 21v-1a5 5 0 0 1 10 0v1"/></svg>
+      </div>
+      <div class="service-text">
+        <h3>Social Media Management</h3>
+        <p>Strategic content and community growth across all platforms.</p>
+      </div>
+    </div>
+    <div class="service-item">
+      <div class="service-icon">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+      </div>
+      <div class="service-text">
+        <h3>Video Editing</h3>
+        <p>Cinematic edits that tell your brand's story.</p>
+      </div>
+    </div>
+    <div class="service-item">
+      <div class="service-icon">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg>
+      </div>
+      <div class="service-text">
+        <h3>Digital Marketing</h3>
+        <p>Data-driven strategies that drive real results.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ STATS ═══ -->
+<section class="stats">
+  <div class="stats-inner">
+    <div class="stat-item">
+      <div class="stat-number">3</div>
+      <div class="stat-label">Projects Completed</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-number">7</div>
+      <div class="stat-label">Happy Clients</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-number">98%</div>
+      <div class="stat-label">Client Satisfaction</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-number">24/7</div>
+      <div class="stat-label">Support</div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ ABOUT ═══ -->
+<section class="about" id="about">
+  <div class="about-left">
+    <div class="section-eyebrow">
+      <span class="section-eyebrow-line"></span>
+      <span>About Vyntrax</span>
+    </div>
+    <h2 class="section-title">We Build Digital<br>Experiences That<br>Actually Work</h2>
+    <p class="section-body">Vyntrax is a full-service digital agency operating at the intersection of design, technology, and strategy. We don't just build websites — we engineer growth engines that put your brand in front of the right audience and turn visitors into customers.</p>
+    <p class="section-body">Our team of developers, designers, and strategists have worked with brands across 12 industries, delivering measurable impact every time.</p>
+    <a href="#work" class="btn-primary" style="display:inline-flex; margin-top:8px;">See Our Work ↗</a>
+  </div>
+  <div class="about-visual">
+    <div class="about-hex-grid">
+      <div class="about-hex lit">⚡</div>
+      <div class="about-hex">🎨</div>
+      <div class="about-hex lit">💻</div>
+      <div class="about-hex">📊</div>
+      <div class="about-hex lit">🚀</div>
+      <div class="about-hex">🎬</div>
+      <div class="about-hex">🔗</div>
+      <div class="about-hex lit">🎯</div>
+      <div class="about-hex">⚙️</div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ WORK ═══ -->
+<section class="work" id="work">
+  <div class="work-header">
+    <div>
+      <div class="section-eyebrow">
+        <span class="section-eyebrow-line"></span>
+        <span>Our Work</span>
+      </div>
+      <h2 class="section-title">Selected Projects</h2>
+    </div>
+    <a href="#" class="btn-ghost">View All Work ↗</a>
+  </div>
+  <div class="work-grid">
+    <a href="https://youtube.com/@yonkokunal?si=Yps9eVtuf2bmBp6X" target="_blank" rel="noopener" class="work-card" style="text-decoration:none;display:block;">
+      <div class="work-card-bg"></div>
+      <div class="work-card-overlay"></div>
+      <div class="work-card-avatar">
+        <img src="https://yt3.googleusercontent.com/wS1kRToVKwZGHfWMLtJpUAp_9-G5185NjErj_DGg6dZ_lMfoUsXb01GSYYJ5GjkyhPMRF1ZRiQ=s160-c-k-c0x00ffffff-no-rj" alt="Yonko Kunal" />
+      </div>
+      <!-- Discord icon in corner -->
+      <div class="work-card-badge" title="Discord" style="width:38px;height:38px;background:rgba(88,101,242,0.18);border:1.5px solid #5865F2;box-shadow:0 0 12px rgba(88,101,242,0.4);">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="#5865F2"><path d="M20.317 4.492c-1.53-.69-3.17-1.2-4.885-1.49a.075.075 0 0 0-.079.036c-.21.369-.444.85-.608 1.23a18.566 18.566 0 0 0-5.487 0 12.36 12.36 0 0 0-.617-1.23A.077.077 0 0 0 8.562 3c-1.714.29-3.354.8-4.885 1.491a.07.07 0 0 0-.032.027C.533 9.093-.32 13.555.099 17.961a.08.08 0 0 0 .031.055 20.03 20.03 0 0 0 5.993 2.98.078.078 0 0 0 .084-.026 13.83 13.83 0 0 0 1.226-1.963.074.074 0 0 0-.041-.104 13.175 13.175 0 0 1-1.872-.878.075.075 0 0 1-.008-.125c.126-.093.252-.19.372-.287a.075.075 0 0 1 .078-.01c3.927 1.764 8.18 1.764 12.061 0a.075.075 0 0 1 .079.009c.12.098.245.195.372.288a.075.075 0 0 1-.006.125c-.598.344-1.22.635-1.873.877a.075.075 0 0 0-.041.105c.36.687.772 1.341 1.225 1.962a.077.077 0 0 0 .084.028 19.963 19.963 0 0 0 6.002-2.981.076.076 0 0 0 .032-.054c.5-5.094-.838-9.52-3.549-13.442a.06.06 0 0 0-.031-.028z"/></svg>
+      </div>
+      <div class="work-card-number">01</div>
+      <div class="work-card-content">
+        <div class="work-card-tag">Discord Management & Setup</div>
+        <div class="work-card-title">Yonko Kunal</div>
+      </div>
+    </a>
+    <a href="https://youtube.com/@almightyshiv?si=NYH4uSmG8YEmzHkS" target="_blank" rel="noopener" class="work-card" style="text-decoration:none;display:block;">
+      <div class="work-card-bg"></div>
+      <div class="work-card-overlay"></div>
+      <div class="work-card-avatar">
+        <img src="https://yt3.googleusercontent.com/Ok_Co1T0n4QCSA5cCQncmTq-ZOTniMTjnvYA5Z7yeGULoJ5jf0tARszUpxMYRy7u343Kpo5Omg=s160-c-k-c0x00ffffff-no-rj" alt="Almighty Shiv" />
+      </div>
+      <!-- Discord icon in corner -->
+      <div class="work-card-badge" title="Discord" style="width:38px;height:38px;background:rgba(88,101,242,0.18);border:1.5px solid #5865F2;box-shadow:0 0 12px rgba(88,101,242,0.4);">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="#5865F2"><path d="M20.317 4.492c-1.53-.69-3.17-1.2-4.885-1.49a.075.075 0 0 0-.079.036c-.21.369-.444.85-.608 1.23a18.566 18.566 0 0 0-5.487 0 12.36 12.36 0 0 0-.617-1.23A.077.077 0 0 0 8.562 3c-1.714.29-3.354.8-4.885 1.491a.07.07 0 0 0-.032.027C.533 9.093-.32 13.555.099 17.961a.08.08 0 0 0 .031.055 20.03 20.03 0 0 0 5.993 2.98.078.078 0 0 0 .084-.026 13.83 13.83 0 0 0 1.226-1.963.074.074 0 0 0-.041-.104 13.175 13.175 0 0 1-1.872-.878.075.075 0 0 1-.008-.125c.126-.093.252-.19.372-.287a.075.075 0 0 1 .078-.01c3.927 1.764 8.18 1.764 12.061 0a.075.075 0 0 1 .079.009c.12.098.245.195.372.288a.075.075 0 0 1-.006.125c-.598.344-1.22.635-1.873.877a.075.075 0 0 0-.041.105c.36.687.772 1.341 1.225 1.962a.077.077 0 0 0 .084.028 19.963 19.963 0 0 0 6.002-2.981.076.076 0 0 0 .032-.054c.5-5.094-.838-9.52-3.549-13.442a.06.06 0 0 0-.031-.028z"/></svg>
+      </div>
+      <div class="work-card-number">02</div>
+      <div class="work-card-content">
+        <div class="work-card-tag">Discord Management & Setup</div>
+        <div class="work-card-title">Almighty Shiv</div>
+      </div>
+    </a>
+    <a href="https://discord.gg/DDd2f8m7Eg" target="_blank" rel="noopener" class="work-card" style="text-decoration:none;display:block;">
+      <div class="work-card-bg"></div>
+      <div class="work-card-overlay"></div>
+      <div class="work-card-avatar" id="kaddu-avatar">
+        <!-- Minecraft Steve head as avatar -->
+        <div style="width:110px;height:110px;border-radius:50%;border:2px solid rgba(0,255,106,.35);background:rgba(0,255,106,.05);display:flex;align-items:center;justify-content:center;box-shadow:0 0 24px rgba(0,255,106,.25);">
+          <svg width="70" height="70" viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg">
+            <!-- Minecraft Steve Face (pixelated head) -->
+            <!-- Head base - tan/skin color -->
+            <rect x="8" y="4" width="48" height="48" fill="#C68642"/>
+            <!-- Darker side/shadow -->
+            <rect x="8" y="4" width="12" height="48" fill="#A0522D" opacity="0.4"/>
+            <rect x="44" y="4" width="12" height="48" fill="#7B3F00" opacity="0.3"/>
+            <!-- Hair / top dark -->
+            <rect x="8" y="4" width="48" height="16" fill="#5C4033"/>
+            <!-- Eyes -->
+            <rect x="14" y="24" width="12" height="10" fill="#fff"/>
+            <rect x="38" y="24" width="12" height="10" fill="#fff"/>
+            <rect x="16" y="26" width="8" height="6" fill="#3D2E24"/>
+            <rect x="40" y="26" width="8" height="6" fill="#3D2E24"/>
+            <!-- Pupils -->
+            <rect x="18" y="27" width="4" height="4" fill="#1a0a00"/>
+            <rect x="42" y="27" width="4" height="4" fill="#1a0a00"/>
+            <!-- Nose area -->
+            <rect x="28" y="34" width="8" height="4" fill="#B5763A"/>
+            <!-- Mouth -->
+            <rect x="16" y="42" width="32" height="4" fill="#5C3317"/>
+            <rect x="20" y="46" width="8" height="4" fill="#5C3317"/>
+            <rect x="36" y="46" width="8" height="4" fill="#5C3317"/>
+            <!-- Minecraft pixel outline -->
+            <rect x="8" y="4" width="48" height="48" fill="none" stroke="#2d1a0a" stroke-width="2"/>
+          </svg>
+        </div>
+      </div>
+      <!-- Minecraft logo in corner -->
+      <div style="position:absolute;top:16px;left:16px;z-index:3;background:rgba(0,0,0,0.75);border:1.5px solid #4CAF50;border-radius:6px;padding:4px 8px;display:flex;align-items:center;gap:5px;box-shadow:0 0 10px rgba(76,175,80,0.4);">
+        <svg width="18" height="18" viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg">
+          <rect x="4" y="4" width="56" height="56" fill="#4CAF50"/>
+          <rect x="4" y="4" width="56" height="14" fill="#388E3C"/>
+          <!-- Pixelated M -->
+          <rect x="10" y="22" width="6" height="22" fill="#fff"/>
+          <rect x="16" y="22" width="6" height="8" fill="#fff"/>
+          <rect x="22" y="22" width="6" height="8" fill="#fff"/>
+          <rect x="28" y="22" width="6" height="22" fill="#fff"/>
+          <!-- C -->
+          <rect x="38" y="22" width="16" height="6" fill="#fff"/>
+          <rect x="38" y="38" width="16" height="6" fill="#fff"/>
+          <rect x="38" y="22" width="6" height="22" fill="#fff"/>
+        </svg>
+        <span style="font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:.7rem;letter-spacing:.1em;color:#4CAF50;text-transform:uppercase;">Minecraft</span>
+      </div>
+      <div class="work-card-number">03</div>
+      <div class="work-card-content">
+        <div class="work-card-tag">Discord Management & Setup</div>
+        <div class="work-card-title">Kaddu MC</div>
+      </div>
+    </a>
+  </div>
+</section>
+
+<!-- ═══ PROCESS ═══ -->
+<section class="process">
+  <div class="process-header">
+    <div class="section-eyebrow" style="justify-content:center">
+      <span class="section-eyebrow-line"></span>
+      <span>How We Work</span>
+      <span class="section-eyebrow-line"></span>
+    </div>
+    <h2 class="section-title" style="text-align:center">Our Process</h2>
+  </div>
+  <div class="process-steps">
+    <div class="process-step">
+      <div class="step-num">01</div>
+      <div class="step-title">Discovery</div>
+      <p class="step-desc">We dig deep into your brand, audience, and goals to build a strategy that's specific to you — not a template.</p>
+    </div>
+    <div class="process-step">
+      <div class="step-num">02</div>
+      <div class="step-title">Design</div>
+      <p class="step-desc">Our designers craft visuals and experiences that reflect your identity and move people to act.</p>
+    </div>
+    <div class="process-step">
+      <div class="step-num">03</div>
+      <div class="step-title">Build</div>
+      <p class="step-desc">Our engineers turn designs into fast, scalable, production-ready products — with zero technical debt.</p>
+    </div>
+    <div class="process-step">
+      <div class="step-num">04</div>
+      <div class="step-title">Launch & Grow</div>
+      <p class="step-desc">We ship, monitor, and iterate — keeping performance high and your business moving forward.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ CTA BANNER ═══ -->
+<div class="cta-banner" id="contact">
+  <div class="cta-left">
+    <h2>Ready to <span>Dominate</span><br>Your Market?</h2>
+    <p>Tell us about your project. We'll put together a custom plan within 24 hours — no commitments, no fluff.</p>
+  </div>
+  <div class="cta-right">
+    <a href="mailto:hello@vyntrax.com" class="btn-cta">Let's Talk ↗</a>
+  </div>
+</div>
+
+<!-- ═══ FOOTER ═══ -->
+<footer>
+  <div class="footer-top">
+    <div class="footer-brand">
+      <a href="#" class="nav-logo" style="text-decoration:none">
+        <svg width="32" height="32" viewBox="0 0 36 36" fill="none">
+          <polygon points="18,2 34,10 34,26 18,34 2,26 2,10" fill="none" stroke="#00ff6a" stroke-width="1.2" opacity=".3"/>
+          <path d="M6 10 L18 28 L30 10" fill="none" stroke="#00ff6a" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+        <span style="font-family:var(--font-display);font-weight:700;letter-spacing:.2em;font-size:1.1rem">VYNTRAX</span>
+      </a>
+      <p>We transform ideas into powerful digital experiences. Innovate. Elevate. Dominate.</p>
+      <div class="footer-socials">
+        <a href="https://x.com/Vyntraxindia" target="_blank" rel="noopener" title="X / Twitter">𝕏</a>
+        <a href="https://www.instagram.com/vyntrax.india" target="_blank" rel="noopener" title="Instagram">IG</a>
+        <a href="https://discord.gg/sreuaAKEQg" target="_blank" rel="noopener" title="Discord">DC</a>
+      </div>
+    </div>
+
+    <div class="footer-col">
+      <h4>Services</h4>
+      <ul>
+        <li><a href="#">Web Development</a></li>
+        <li><a href="#">Social Media Management</a></li>
+        <li><a href="#">Video Editing</a></li>
+        <li><a href="#">Digital Marketing</a></li>
+        <li><a href="#">SEO & Analytics</a></li>
+      </ul>
+    </div>
+
+    <div class="footer-col">
+      <h4>Company</h4>
+      <ul>
+        <li><a href="#">About Us</a></li>
+        <li><a href="#">Our Work</a></li>
+        <li><a href="#">Blog</a></li>
+        <li><a href="#">Careers</a></li>
+      </ul>
+    </div>
+
+    <div class="footer-col">
+      <h4>Contact</h4>
+      <ul>
+        <li><a href="mailto:hello@vyntrax.com">hello@vyntrax.com</a></li>
+        <li><a href="tel:+15551234567">+1 (555) 123-4567</a></li>
+        <li><a href="#">Schedule a Call</a></li>
+        <li><a href="#">Privacy Policy</a></li>
+        <li><a href="#">Terms of Service</a></li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="footer-bottom">
+    <p>© 2026 <span>Vyntrax</span>. All rights reserved.</p>
+    <p>Built to <span>Dominate</span>.</p>
+  </div>
+</footer>
+
+<script>
+  // Active nav on scroll
+  const sections = document.querySelectorAll('section[id], div[id]');
+  const navLinks = document.querySelectorAll('.nav-links a');
+  window.addEventListener('scroll', () => {
+    let current = '';
+    sections.forEach(s => {
+      if (window.scrollY >= s.offsetTop - 120) current = s.id;
+    });
+    navLinks.forEach(a => {
+      a.classList.remove('active');
+      if (a.getAttribute('href') === '#' + current || (current === '' && a.getAttribute('href') === '#')) {
+        a.classList.add('active');
+      }
+    });
+  });
+
+  // Stat counter animation
+  const statNumbers = document.querySelectorAll('.stat-number');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.style.textShadow = '0 0 40px rgba(0,255,106,.7)';
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.5 });
+  statNumbers.forEach(n => observer.observe(n));
+</script>
+
+</body>
+</html>
